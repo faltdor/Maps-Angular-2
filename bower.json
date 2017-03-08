@@ -1,0 +1,17 @@
+{
+  "name": "mapit",
+  "description": "maps",
+  "main": "",
+  "authors": [
+    "faltdor <faltdor@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "index",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",    
+    "test",
+    "tests"
+  ]
+}

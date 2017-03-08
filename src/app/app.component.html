@@ -1,3 +1,91 @@
-<h1>
-  {{title}}
-</h1>
+ <nav class="navbar navbar-inverse ">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+<div class="container"> 
+    <div class="row">
+
+        <div class="col-md-12">
+          <div class="map"> 
+              <sebm-google-map 
+               [latitude]="lat"
+               [longitude]="lng"                
+               [zoom]="zoom"
+               [disableDefaultUI]="false"
+               [zoomControl]="true"
+               (mapClick)="mapClicked($event)">
+
+              <sebm-google-map-marker   
+               *ngFor = "let m of markers; let i = index"
+               (markerClick)="clickedMarker(m,i)" 
+                [latitude]="m.lat"
+               [longitude]="m.lng"
+               [markerDraggable]="m.draggable"
+               (dragEnd)="markerDragEnd(m,$event)"
+
+               >
+               <sebm-google-map-info-window>
+                <strong>{{m.name}}</strong>
+                <br>
+                <a class="delete" href="#" (click)="removeMarker(m)">Delete</a>
+               </sebm-google-map-info-window>
+                
+              </sebm-google-map-marker>
+            </sebm-google-map>
+          </div>
+        </div>      
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title-body">
+                  Add Location
+                </h3>
+                <form [formGroup]="markerForm" 
+                novalidate (ngSubmit)="addMarker($event,markerForm.value, markerForm.valid)"
+                >
+                  <div class="form-group">
+                      <label>Location name</label>
+                      <input formControlName="name" value="Compaby Four" placeholder="Location">
+
+                      <label>Latitude</label>
+                      <input formControlName="lat" value="51.64699834847127" placeholder="Location">
+
+                      <label>Longitude</label>
+                      <input  formControlName="lng" value="-7.812652587890625" placeholder="Location">
+
+                      <label>Draggable</label>
+                      <select formControlName="draggable" >
+                        <option value="no">No</option>
+                        <option value="yes">Yes</option>                   
+                      </select>
+                      <input type="submit"  value="Add It" [disabled]="!markerForm.valid">
+
+                  </div>
+
+                  
+                  
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
